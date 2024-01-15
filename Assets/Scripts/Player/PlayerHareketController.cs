@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerHareketController : MonoBehaviour
 {
+    public static PlayerHareketController instance;
+
     [Header("Hareket Ayarlari")]
     [SerializeField] private float normalHareketHizi = 10f;
     [SerializeField] private float kosmaHareketHizi = 20f;
@@ -19,6 +21,7 @@ public class PlayerHareketController : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
