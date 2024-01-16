@@ -137,9 +137,11 @@ GameObject:
   - component: {fileID: 63677459}
   - component: {fileID: 63677458}
   - component: {fileID: 63677463}
+  - component: {fileID: 63677464}
+  - component: {fileID: 63677465}
   m_Layer: 0
   m_Name: TakipEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -293,6 +295,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   takipMesafesi: 7
   hareketHizi: 5
+--- !u!114 &63677464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63677457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 323c730f51744c943a4616f41495d614, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fillImg: {fileID: 1230104259}
+  damageEffect: {fileID: 6549617249966927578, guid: 8be484d93f24e0d47b4c11dc0dea5d27, type: 3}
+  deathEffect: {fileID: 4197141007386798507, guid: bf15fd4b3d6561a4792b48e028323797, type: 3}
+  mermiTepkiGucu: 3
+  maxCan: 100
+--- !u!114 &63677465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63677457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d2bf23a10760544ab321b6d3f1470a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBackTime: 0.2
+  geriTepkiOlsunmu: 0
 --- !u!1 &106874669
 GameObject:
   m_ObjectHideFlags: 0
@@ -1253,7 +1286,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0

@@ -15,17 +15,20 @@ public class EnemyController : MonoBehaviour
 
     private Animator anim;
 
+    private KnockBack knockBack;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        knockBack = GetComponent<KnockBack>();
         
     }
 
     private void Update()
     {
 
-        if (!PlayerHareketController.instance)
+        if (!PlayerHareketController.instance || knockBack.geriTepkiOlsunmu)
         {
             return;
         }

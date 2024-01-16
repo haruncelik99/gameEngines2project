@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerBullet : MonoBehaviour
 {
     [SerializeField] private float mermiHizi = 10f;
+    [SerializeField] private int mermiHasarGucu = 10;
 
     private Rigidbody2D rb;
 
@@ -23,6 +24,13 @@ public class PlayerBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.CompareTag("Enemy"))
+        {
+            other.GetComponent<EnemyHealthController>().HasarAlFNC(mermiHasarGucu);
+            this.gameObject.SetActive(false);
+        }
+
+
         if (other.CompareTag("Wall"))
         {
             GameObject duvarEfecti = null;
