@@ -5,9 +5,17 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private float takipMesafesi = 5f;
-    [SerializeField] float hareketHizi = 5f;
+    [SerializeField] private float mermiAtisMesafesi = 10f;
+    [SerializeField] private float hareketHizi = 5f;
 
+    [SerializeField] private bool atesEdebilirmi;
     
+    [SerializeField] private Transform mermiCikisNoktasi;
+    [SerializeField] private float atesEtmeAraligi = .25f;
+    private float atesEtmeSayac;
+
+    private EnemyBullet enemyBullet;
+
 
     private Vector3 hareketYonu;
 
@@ -37,6 +45,12 @@ public class EnemyController : MonoBehaviour
         {
             hareketYonu = PlayerHareketController.instance.transform.position - transform.position;
         }
+        else
+        {
+            hareketYonu = Vector3.zero;
+        }
+
+
         hareketYonu.Normalize();
         rb.velocity = hareketYonu * hareketHizi;
 
@@ -57,12 +71,47 @@ public class EnemyController : MonoBehaviour
         {
             anim.SetBool("hareketEtsinmi", false);
         }
+
+        //mermi ile ilgili
+
+        if(MesafeOlcFNC() < mermiAtisMesafesi)
+        {
+            if (Time.time > atesEtmeSayac && PlayerHareketController.instance.gameObject.activeInHierarchy)
+            {
+                atesEtmeSayac = Time.time + atesEtmeAraligi;
+                ShootBullet();
+            }
+        }
+
+        
+
+
+
+    }
+
+    void ShootBullet()
+    {
+
+        enemyBullet = ObjectPool.instance.EnemyMermiCikarFNC();
+
+        if (enemyBullet)
+        {
+            enemyBullet.transform.position = mermiCikisNoktasi.position;
+            enemyBullet.transform.rotation = mermiCikisNoktasi.rotation;
+            enemyBullet.gameObject.SetActive(true);
+        }
+
+
+
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, takipMesafesi);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, mermiAtisMesafesi);
     }
 
     float MesafeOlcFNC()

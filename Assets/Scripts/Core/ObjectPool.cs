@@ -13,6 +13,17 @@ public class ObjectPool : MonoBehaviour
     [SerializeField]
     private int playerBulletAdet = 40;
 
+    [Header("Enemy Mermiler Pools")]
+    [SerializeField] private Transform enemyMermiHolder;
+    [SerializeField] private EnemyBullet enemyBullet;
+    public List<EnemyBullet> enemyBulletList = new List<EnemyBullet>();
+    [SerializeField]
+    private int enemyBulletAdet = 30;
+
+
+
+
+
     [Header("DuvarMermiPools")]
     [SerializeField] private Transform duvarMermiEfectHolder;
     [SerializeField] private GameObject duvarEfekt;
@@ -40,6 +51,17 @@ public class ObjectPool : MonoBehaviour
 
         }
 
+        for (int i = 0; i < enemyBulletAdet; i++)
+        {
+            EnemyBullet enemy_bullet = Instantiate(enemyBullet);
+            enemy_bullet.gameObject.SetActive(false);
+            enemy_bullet.gameObject.transform.SetParent(enemyMermiHolder);
+            enemyBulletList.Add(enemy_bullet);
+
+        }
+
+
+
         for (int i = 0; i < duvarEffectAdet; i++)
         {
             GameObject duvar_Efecti = Instantiate(duvarEfekt);
@@ -61,6 +83,23 @@ public class ObjectPool : MonoBehaviour
 
         return null;
     }
+
+    public EnemyBullet EnemyMermiCikarFNC()
+    {
+        for (int i = 0; i < enemyBulletList.Count; i++)
+        {
+            if (!enemyBulletList[i].gameObject.activeInHierarchy)
+            {
+                return enemyBulletList[i];
+            }
+        }
+
+        return null;
+    }
+
+
+
+
 
     public GameObject DuvarMermiEfectCikar()
     {
