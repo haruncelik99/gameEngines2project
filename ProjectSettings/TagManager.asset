@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wall
   - Enemy
+  - PlayerBullet
   layers:
   - Default
   - TransparentFX
@@ -45,6 +46,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Objeler
+    uniqueID: 456742617
     locked: 0
   - name: Player
     uniqueID: 3839482703

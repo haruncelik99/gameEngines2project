@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHealthController : MonoBehaviour
 {
+    public static PlayerHealthController instance; 
     [SerializeField] private int toplamCan = 10;
     private int gecerliCan;
 
@@ -16,6 +18,13 @@ public class PlayerHealthController : MonoBehaviour
 
     private bool zirhVarmi;
 
+    [SerializeField] private SpriteRenderer bodySprite;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
         zirhVarmi = true;
@@ -24,6 +33,25 @@ public class PlayerHealthController : MonoBehaviour
         gecerliZirh = toplamZirh;
 
         UIManager.instance.StartHealthFNC(toplamCan, gecerliCan, toplamZirh, gecerliZirh);
+    }
+
+    public void ZirhiArtirFNC(int artisMiktari)
+    {
+        gecerliZirh += artisMiktari;
+
+        gecerliZirh = Mathf.Clamp(gecerliZirh, 0, toplamZirh);
+
+        zirhVarmi = true;
+        UIManager.instance.UpdateHealthFNC(toplamCan, gecerliCan, toplamZirh, gecerliZirh);
+        
+        
+    }
+
+    public void CaniArtirFNC(int artisMiktari)
+    {
+        gecerliCan += artisMiktari;
+        gecerliCan = Mathf.Clamp(gecerliCan, 0, toplamCan);
+        UIManager.instance.UpdateHealthFNC(toplamCan, gecerliCan, toplamZirh, gecerliZirh);
     }
 
    
@@ -38,6 +66,7 @@ public class PlayerHealthController : MonoBehaviour
         if (zirhVarmi)
         {
             gecerliZirh -= hasarMiktari;
+            gecerliZirh = Mathf.Clamp(gecerliZirh, 0, toplamZirh);
 
             UIManager.instance.UpdateHealthFNC(toplamCan, gecerliCan, toplamZirh, gecerliZirh);
 
@@ -49,6 +78,7 @@ public class PlayerHealthController : MonoBehaviour
         }
 
         gecerliCan -= hasarMiktari;
+        gecerliCan = Mathf.Clamp(gecerliCan, 0, toplamCan);
 
         UIManager.instance.UpdateHealthFNC(toplamCan, gecerliCan, toplamZirh, gecerliZirh);
 
@@ -63,4 +93,29 @@ public class PlayerHealthController : MonoBehaviour
         Instantiate(playerDeathEffect, transform.position, Quaternion.identity);
         this.gameObject.SetActive(false);
     }
+
+    public IEnumerator YanipSonmeRouitine()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            bodySprite.color = new Color(
+                bodySprite.color.r,
+                bodySprite.color.g,
+                bodySprite.color.b,
+                    .1f
+
+            );
+            yield return new WaitForSeconds(.1f);
+            
+            bodySprite.color = new Color(
+                bodySprite.color.r,
+                bodySprite.color.g,
+                bodySprite.color.b,
+                1f
+
+            );
+            yield return new WaitForSeconds(.1f);
+        }
+    }
+    
 }
