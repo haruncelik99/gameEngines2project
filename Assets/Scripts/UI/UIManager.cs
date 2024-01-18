@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -14,9 +14,17 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI healthTxt, zirhTxt;
 
+    [SerializeField] private TextMeshProUGUI toplamPuanTxt, coinAdetTxt;
+
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
+        toplamPuanTxt.text = "0 P";
+        coinAdetTxt.text = "0";
     }
 
     public void StartHealthFNC(int toplamCan, int gecerliCan, int toplamZirh, int gecerliZirh)
@@ -37,5 +45,15 @@ public class UIManager : MonoBehaviour
 
         healthTxt.text = gecerliCan + "/" + toplamCan;
         zirhTxt.text = gecerliZirh + "/" + toplamZirh;
+    }
+
+    public void PuaniYazdir(int gelenPuan)
+    {
+        toplamPuanTxt.text = gelenPuan.ToString() + "P";
+    }
+
+    public void CoinAdetYazdir(int gelenAdet)
+    {
+        coinAdetTxt.text = gelenAdet.ToString();
     }
 }

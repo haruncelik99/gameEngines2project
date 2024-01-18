@@ -301,6 +301,7 @@ GameObject:
   - component: {fileID: 1678632269804169660}
   - component: {fileID: 1678632269804169651}
   - component: {fileID: 1678632269804169650}
+  - component: {fileID: 2946787106967696136}
   m_Layer: 8
   m_Name: TakipEnemy
   m_TagString: Enemy
@@ -493,3 +494,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knockBackTime: 0.2
   geriTepkiOlsunmu: 0
+--- !u!114 &2946787106967696136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678632269804169658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 351bd544bf7a7724cab36557436d44fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nesneBirakabilirmi: 1
+  pickItems:
+  - {fileID: 1836453072726730353, guid: ad28630da23a8b94b8510f283faa0e17, type: 3}
+  - {fileID: 7610492375430996627, guid: 0b15d51eb10f882479067e3ab227ad03, type: 3}
+  - {fileID: 4836423107926796843, guid: 6cccab0c43cddb5458e5434ca437e615, type: 3}

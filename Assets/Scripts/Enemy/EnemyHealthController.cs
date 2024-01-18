@@ -30,9 +30,9 @@ public class EnemyHealthController : MonoBehaviour
 
     }
 
-    public void HasarAlFNC(int hasarMiktarý)
+    public void HasarAlFNC(int hasarMiktari)
     {
-        gecerliCan -= hasarMiktarý;
+        gecerliCan -= hasarMiktari;
 
         fillImg.DOFillAmount((float)gecerliCan / maxCan, .5f);
 
@@ -42,6 +42,7 @@ public class EnemyHealthController : MonoBehaviour
         if (gecerliCan <= 0)
         {
             Instantiate(deathEffect, transform.position, Quaternion.identity);
+            GetComponent<DropManager>().NesneyiBirakFNC();
             gameObject.SetActive(false);
         }
 
