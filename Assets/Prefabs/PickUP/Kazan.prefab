@@ -117,7 +117,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -146,4 +146,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flyTxtPrefab: {fileID: 3542810677146875290, guid: dd7c98c695e67a9458ac2b9176e044f4, type: 3}
+  coinUzaklik: 5
+  moveSpeed: 2
+  artisHizi: 0.3
+  coinPrefab: {fileID: 0}
+  sandikAcik: {fileID: 0}
+  sandikBos: {fileID: 0}
   pickUpItem: 2

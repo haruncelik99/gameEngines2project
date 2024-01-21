@@ -17,7 +17,10 @@ public class PlayerHareketController : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator anim;
-    [SerializeField] private Transform handTransform; 
+    [SerializeField] private Transform handTransform;
+    
+    [HideInInspector]
+    public bool hareketEdebilsinmi = true;
 
     private void Awake()
     {
@@ -32,16 +35,29 @@ public class PlayerHareketController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (hareketEdebilsinmi)
         {
-            hareketHizi = kosmaHareketHizi;
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                hareketHizi = kosmaHareketHizi;
+            }
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                hareketHizi = normalHareketHizi;
+            }
+            HareketFNC();
+            SilahiDondurFNC();
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        else
         {
-            hareketHizi = normalHareketHizi;
+            rb.velocity = Vector2.zero;
+            hareketHizi = 0;
+            anim.SetBool("hareketEtsinmi",false);
         }
-        HareketFNC();
-        SilahiDondurFNC();
+            
+        
+        
+        
     }
 
     void HareketFNC()
