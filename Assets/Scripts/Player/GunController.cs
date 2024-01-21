@@ -16,6 +16,11 @@ public class GunController : MonoBehaviour
 
     private Camera mainCamera;
 
+    [SerializeField] private bool firstMermi, secondMermi, laserMermi;
+
+    [SerializeField] private GameObject laserPrefab;
+    
+
     private void Start()
     {
         mainCamera = Camera.main;
@@ -24,33 +29,70 @@ public class GunController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButton(0) && Time.time >mermiAtisSayac)
+        if (firstMermi)
         {
-            //Instantiate(mermiPrefab, mermiCikisNoktasi.position, mermiCikisNoktasi.rotation);
-            mermiPrefab = ObjectPool.instance.MermiCikarFNC();
-
-            if (mermiPrefab)
+            if (Input.GetMouseButton(0) && Time.time >mermiAtisSayac)
             {
-                mermiPrefab.transform.position = mermiCikisNoktasi.position;
-                mermiPrefab.transform.rotation = mermiCikisNoktasi.rotation;
-                mermiPrefab.gameObject.SetActive(true);
-            }
+                //Instantiate(mermiPrefab, mermiCikisNoktasi.position, mermiCikisNoktasi.rotation);
+                mermiPrefab = ObjectPool.instance.FirstMermiCikarFNC();
 
-            if (atesEtmeEfekti)
-            {
-                atesEtmeEfekti.SetActive(true);
-            }
+                if (mermiPrefab)
+                {
+                    mermiPrefab.transform.position = mermiCikisNoktasi.position;
+                    mermiPrefab.transform.rotation = mermiCikisNoktasi.rotation;
+                    mermiPrefab.gameObject.SetActive(true);
+                }
+
+                if (atesEtmeEfekti)
+                {
+                    atesEtmeEfekti.SetActive(true);
+                }
 
            
-            mermiAtisSayac = Time.time + mermiAtisSuresi;
+                mermiAtisSayac = Time.time + mermiAtisSuresi;
 
-            mainCamera.DOShakePosition(0.1f, 0.1f, fadeOut: true);
+                mainCamera.DOShakePosition(0.1f, 0.1f, fadeOut: true);
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                if (atesEtmeEfekti)
+                    atesEtmeEfekti.SetActive(false);
+            }
         }
-
-        if (Input.GetMouseButtonUp(0))
+        else if (secondMermi)
         {
-            if (atesEtmeEfekti)
-                atesEtmeEfekti.SetActive(false);
+            if (Input.GetMouseButtonDown(0))
+            {
+                mermiPrefab = ObjectPool.instance.SecondMermiCikarFNC();
+            
+                if (mermiPrefab)
+                {
+                    mermiPrefab.transform.position = mermiCikisNoktasi.position;
+                    mermiPrefab.transform.rotation = mermiCikisNoktasi.rotation;
+                    mermiPrefab.gameObject.SetActive(true);
+                }
+                mainCamera.DOShakePosition(0.1f, 0.05f, fadeOut: true);
+            }
+            
+            
         }
+        else if (laserMermi)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                float randomMesafe = Random.Range(10f, 15f);
+                if (laserPrefab)
+                { 
+                    GameObject laser = Instantiate(laserPrefab, mermiCikisNoktasi.position, Quaternion.identity);
+                    laser.GetComponent<LaserBullet>().LaserMesafeGuncelle(randomMesafe);
+                }
+                
+            }
+        }
+
+        
+            
+
     }
 }

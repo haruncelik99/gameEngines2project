@@ -2,16 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool instance;
 
-    [Header("Mermiler Pools")]
-    [SerializeField] private Transform mermiHolder;
-    [SerializeField] private PlayerBullet playerBullet;
-    public List<PlayerBullet> playerBulletList = new List<PlayerBullet>();
-    [SerializeField]
-    private int playerBulletAdet = 40;
+    
+    [Header("First Mermiler Pools")]
+    [SerializeField] private Transform firstMermiHolder;
+    [SerializeField] private PlayerBullet firstPlayerBullet;
+    public List<PlayerBullet> firstPlayerBulletList = new List<PlayerBullet>();
+    [SerializeField] private int firstPlayerBulletAdet = 40;
+    
+    [Header("Second Mermiler Pools")]
+    [SerializeField] private Transform secondMermiHolder;
+    [SerializeField] private PlayerBullet secondPlayerBullet;
+    public List<PlayerBullet> secondPlayerBulletList = new List<PlayerBullet>();
+    [SerializeField] private int secondPlayerBulletAdet = 20;
+    
 
     [Header("Enemy Mermiler Pools")]
     [SerializeField] private Transform enemyMermiHolder;
@@ -42,14 +50,24 @@ public class ObjectPool : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < playerBulletAdet; i++)
+        for (int i = 0; i < firstPlayerBulletAdet; i++)
         {
-            PlayerBullet bullet = Instantiate(playerBullet);
+            PlayerBullet bullet = Instantiate(firstPlayerBullet);
             bullet.gameObject.SetActive(false);
-            bullet.gameObject.transform.SetParent(mermiHolder);
-            playerBulletList.Add(bullet);
+            bullet.gameObject.transform.SetParent(firstMermiHolder);
+            firstPlayerBulletList.Add(bullet);
 
         }
+        for (int i = 0; i < secondPlayerBulletAdet; i++)
+        {
+            PlayerBullet bullet = Instantiate(secondPlayerBullet);
+            bullet.gameObject.SetActive(false);
+            bullet.gameObject.transform.SetParent(secondMermiHolder);
+            secondPlayerBulletList.Add(bullet);
+
+        }
+        
+        
 
         for (int i = 0; i < enemyBulletAdet; i++)
         {
@@ -71,18 +89,39 @@ public class ObjectPool : MonoBehaviour
 
         }
     }
-    public PlayerBullet MermiCikarFNC()
+    public PlayerBullet FirstMermiCikarFNC()
     {
-        for (int i = 0; i < playerBulletList.Count; i++)
+        for (int i = 0; i < firstPlayerBulletList.Count; i++)
         {
-            if (!playerBulletList[i].gameObject.activeInHierarchy)
+            if (!firstPlayerBulletList[i].gameObject.activeInHierarchy)
             {
-                return playerBulletList[i];
+                return firstPlayerBulletList[i];
             }
         }
 
         return null;
+
     }
+    
+    public PlayerBullet SecondMermiCikarFNC()
+    {
+        for (int i = 0; i < secondPlayerBulletList.Count; i++)
+        {
+            if (!secondPlayerBulletList[i].gameObject.activeInHierarchy)
+            {
+                return secondPlayerBulletList[i];
+            }
+        }
+
+        return null;
+
+    }
+    
+    
+    
+    
+    
+    
 
     public EnemyBullet EnemyMermiCikarFNC()
     {
