@@ -114,4 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32b1368d418e4fd4a9f7d6ef12d95984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserBuyumeZamani: 0.25
+  laserBuyumeZamani: 0.2
+  fadeZamani: 0.4
+  laserHasarGucu: 3
