@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BombEnemy : MonoBehaviour
 {
+    [SerializeField] private GameObject bombaPrefab;
     [SerializeField] private float harekethizi = 10f;
 
     [SerializeField] private Transform[] bombPositions;
@@ -43,6 +45,8 @@ public class BombEnemy : MonoBehaviour
         YeniHedefOlusturFNC();
         yield return new WaitForSeconds(beklemeSuresi);
         hareketEtsinmi = true;
+        
+        BombaOlusturFNC();
     }
 
     void YeniHedefOlusturFNC()
@@ -53,5 +57,16 @@ public class BombEnemy : MonoBehaviour
 
         if (kacinciPos >= bombPositions.Length)
             kacinciPos = 0;
+    }
+
+    void BombaOlusturFNC()
+    {
+        float rand = Random.value;
+
+        if (rand < 1f)
+        {
+            GameObject bomba = Instantiate(bombaPrefab, transform.position, Quaternion.identity);
+            StartCoroutine(bomba.GetComponent<BombaManager>().BombaPatlatFNC(bomba.transform));
+        }
     }
 }

@@ -22,6 +22,9 @@ public class PlayerHareketController : MonoBehaviour
     [HideInInspector]
     public bool hareketEdebilsinmi = true;
 
+    [HideInInspector]
+    public bool geriTepkiOlsunmu = false;
+
     private void Awake()
     {
         instance = this;
@@ -35,30 +38,63 @@ public class PlayerHareketController : MonoBehaviour
 
     private void Update()
     {
-        if (hareketEdebilsinmi)
+        if (!geriTepkiOlsunmu)
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (hareketEdebilsinmi)
             {
-                hareketHizi = kosmaHareketHizi;
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    hareketHizi = kosmaHareketHizi;
+                }
+                if (Input.GetKeyUp(KeyCode.LeftShift))
+                {
+                    hareketHizi = normalHareketHizi;
+                }
+                HareketFNC();
+                SilahiDondurFNC();
             }
-            if (Input.GetKeyUp(KeyCode.LeftShift))
+            else
             {
-                hareketHizi = normalHareketHizi;
+                rb.velocity = Vector2.zero;
+                hareketHizi = 0;
+                anim.SetBool("hareketEtsinmi",false);
             }
-            HareketFNC();
-            SilahiDondurFNC();
         }
-        else
-        {
-            rb.velocity = Vector2.zero;
-            hareketHizi = 0;
-            anim.SetBool("hareketEtsinmi",false);
-        }
+        
+        
             
         
         
         
     }
+
+    public IEnumerator GeriTepkiFNC(float forceX, float forceY, float duration, Transform otherObject)
+    {
+        
+        geriTepkiOlsunmu = true;
+        
+        int geriTepkiDirection;
+        if (transform.position.x < otherObject.position.x)
+        {
+            geriTepkiDirection = -1;
+            
+        }
+        else
+        {
+            geriTepkiDirection = 1;
+        }
+
+        rb.velocity = Vector2.zero;
+        Vector2 force = new Vector2(geriTepkiDirection * forceX, forceY);
+        rb.AddForce(force,ForceMode2D.Impulse);
+        yield return new WaitForSeconds(duration);
+        geriTepkiOlsunmu = false;
+        rb.velocity = Vector2.zero;
+
+    }
+    
+    
+    
 
     void HareketFNC()
     {
