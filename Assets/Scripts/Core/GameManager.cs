@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,8 +29,31 @@ public class GameManager : MonoBehaviour
 
     public void CoinArtir(int gelenAdet)
     {
-        coinAdet++;
+        coinAdet+=gelenAdet;
         UIManager.instance.CoinAdetYazdir(coinAdet);
     }
+    
+    public void CoinAzalt(int azaltmaAdet)
+    {
+        coinAdet-=azaltmaAdet;
+        if (coinAdet <= 0)
+            coinAdet = 0;
+        UIManager.instance.CoinAdetYazdir(coinAdet);
+    }
+    
+    
+    //silinecek
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            CoinArtir(20);
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            PlayerHealthController.instance.HasarAlFNC(5);
+        }
+    }
 }

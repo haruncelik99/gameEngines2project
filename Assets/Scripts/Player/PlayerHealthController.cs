@@ -15,8 +15,8 @@ public class PlayerHealthController : MonoBehaviour
     [SerializeField] private GameObject playerDamageEffect,playerDeathEffect;
 
 
-
-    private bool zirhVarmi;
+    [HideInInspector]
+    public bool zirhVarmi;
 
     [SerializeField] private SpriteRenderer bodySprite;
 
@@ -51,6 +51,19 @@ public class PlayerHealthController : MonoBehaviour
     {
         gecerliCan += artisMiktari;
         gecerliCan = Mathf.Clamp(gecerliCan, 0, toplamCan);
+        UIManager.instance.UpdateHealthFNC(toplamCan, gecerliCan, toplamZirh, gecerliZirh);
+    }
+
+    public void ToplamCaniArtirFNC()
+    {
+        toplamCan += 5;
+        gecerliCan = toplamCan;
+
+        gecerliCan = Mathf.Clamp(gecerliCan,0, toplamCan);
+
+        gecerliZirh += 5;
+        gecerliZirh = Mathf.Clamp(gecerliZirh, 0, toplamZirh);
+        zirhVarmi = true;
         UIManager.instance.UpdateHealthFNC(toplamCan, gecerliCan, toplamZirh, gecerliZirh);
     }
 
@@ -116,6 +129,16 @@ public class PlayerHealthController : MonoBehaviour
             );
             yield return new WaitForSeconds(.1f);
         }
+    }
+
+    public int ToplamCaniAl()
+    {
+        return toplamCan;
+    }
+
+    public int GecerliCaniAl()
+    {
+        return gecerliCan;
     }
     
 }
