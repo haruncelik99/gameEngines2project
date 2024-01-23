@@ -20,6 +20,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject pausePanel;
     
     [SerializeField] private string levelName;
+    
+    [SerializeField] private AudioClip butonClip, panelAcmaClip;
 
     [HideInInspector]
     public bool oyunDurdumu;
@@ -52,6 +54,7 @@ public class UIManager : MonoBehaviour
         if (pausePanel)
         {
             pausePanel.SetActive(oyunDurdumu);
+            AudioSource.PlayClipAtPoint(panelAcmaClip,Camera.main.transform.position);
             Time.timeScale = (oyunDurdumu) ? 0 : 1;
 
 
@@ -62,6 +65,8 @@ public class UIManager : MonoBehaviour
     {
         if (pausePanel)
         {
+            
+            AudioSource.PlayClipAtPoint(butonClip,Camera.main.transform.position);
             Time.timeScale = 1f;
             pausePanel.SetActive(false);
         }
@@ -69,12 +74,14 @@ public class UIManager : MonoBehaviour
 
     public void AnaMenuFNC()
     {
+        AudioSource.PlayClipAtPoint(butonClip,Camera.main.transform.position);
         Time.timeScale = 1f;
         SceneManager.LoadScene(levelName);
     }
 
     public void OyundanCikFNC()
     {
+        AudioSource.PlayClipAtPoint(butonClip,Camera.main.transform.position);
         Application.Quit();
     }
 

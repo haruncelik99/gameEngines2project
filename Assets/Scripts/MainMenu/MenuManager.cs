@@ -12,6 +12,8 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField] private string levelName;
 
+    [SerializeField] private AudioClip butonClip, panelAcmaClip;
+
     private void Start()
     {
         StartCoroutine(ObjeleriAcRoutine());
@@ -49,24 +51,28 @@ public class MenuManager : MonoBehaviour
 
     public void OptionsPaneliAc()
     {
+        
         butonlarPanel.GetComponent<RectTransform>().DOAnchorPosY(700, .5f);
         optionsPanel.GetComponent<RectTransform>().DOAnchorPosY(0, .5f);
+        AudioSource.PlayClipAtPoint(panelAcmaClip,Camera.main.transform.position);
     }
     
     public void OptionsPaneliKapat()
     {
         butonlarPanel.GetComponent<RectTransform>().DOAnchorPosY(0, .5f);
         optionsPanel.GetComponent<RectTransform>().DOAnchorPosY(700, .5f);
+        AudioSource.PlayClipAtPoint(panelAcmaClip,Camera.main.transform.position);
     }
 
     public void OyundanCik()
     {
         Application.Quit();
-        print("oyundan çıkıldı");
+        AudioSource.PlayClipAtPoint(butonClip,Camera.main.transform.position);
     }
 
     public void OyunaBasla()
     {
+        AudioSource.PlayClipAtPoint(butonClip,Camera.main.transform.position);
         SceneManager.LoadScene(levelName);
     }
     

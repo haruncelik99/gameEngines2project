@@ -2357,6 +2357,8 @@ MonoBehaviour:
   coinAdetTxt: {fileID: 1737628217}
   pausePanel: {fileID: 1181021477}
   levelName: MainMenu
+  butonClip: {fileID: 8300000, guid: d8989c371cc26194d96b9198a564f34a, type: 3}
+  panelAcmaClip: {fileID: 8300000, guid: 91ee2cc590e54714aacd99d3e09f3ef4, type: 3}
   oyunDurdumu: 0
 --- !u!1 &542324824
 GameObject:
