@@ -75,17 +75,23 @@ public class PickUpManager : MonoBehaviour
         {
             if (pickUpItem == PickUpItems.Zirh)
             {
+                SoundManager.instance.SesEfektiCikar(3);
                 PlayerHealthController.instance.ZirhiArtirFNC((1));
+                Destroy(gameObject);
+                
             }else if (pickUpItem == PickUpItems.Can)
             {
+                SoundManager.instance.SesEfektiCikar(3);
                 PlayerHealthController.instance.CaniArtirFNC(1);
-            }
-            else if (pickUpItem == PickUpItems.Coin)
+                Destroy(gameObject);
+            }else if (pickUpItem == PickUpItems.Coin)
             {
+                SoundManager.instance.KarisikSesEfektiCikar(4);
                 GameManager.instance.CoinArtir(1);
+                Destroy(gameObject);
             }
             
-            Destroy(gameObject);
+            
         }
 
 

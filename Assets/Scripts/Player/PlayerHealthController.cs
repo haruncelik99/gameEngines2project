@@ -75,6 +75,8 @@ public class PlayerHealthController : MonoBehaviour
             return;
 
         Instantiate(playerDamageEffect, transform.position, Quaternion.identity);
+        SoundManager.instance.SesEfektiCikar(1);
+        
 
         if (zirhVarmi)
         {
@@ -103,6 +105,7 @@ public class PlayerHealthController : MonoBehaviour
 
     void PlayerCanVerdi()
     {
+        SoundManager.instance.SesEfektiCikar(5);
         Instantiate(playerDeathEffect, transform.position, Quaternion.identity);
         this.gameObject.SetActive(false);
     }

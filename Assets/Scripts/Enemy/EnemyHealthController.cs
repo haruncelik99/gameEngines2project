@@ -38,9 +38,11 @@ public class EnemyHealthController : MonoBehaviour
 
         Instantiate(damageEffect, transform.position, Quaternion.identity);
         knockBack.GeriTepkiFNC(PlayerHareketController.instance.transform, mermiTepkiGucu);
+        SoundManager.instance.SesEfektiCikar(1);
 
         if (gecerliCan <= 0)
         {
+            SoundManager.instance.SesEfektiCikar(2);
             Instantiate(deathEffect, transform.position, Quaternion.identity);
             GetComponent<DropManager>().NesneyiBirakFNC();
             gameObject.SetActive(false);

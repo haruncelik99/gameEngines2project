@@ -1,7 +1,7 @@
 
-using System;
+
 using UnityEngine;
-using Random = UnityEngine.Random;
+
 
 
 public class SoundManager : MonoBehaviour
@@ -13,6 +13,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip[] backClips;
 
     private AudioClip rastgeleClip;
+
+    [SerializeField] private AudioSource[] sesEfektleri;
 
 
     private void Awake()
@@ -38,6 +40,27 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void SesEfektiCikar(int hangiSes)
+    {
+        if (sesEfektleri[hangiSes])
+        {
+            sesEfektleri[hangiSes].Stop();
+            sesEfektleri[hangiSes].Play();
+        }
+    }
+    
+    public void KarisikSesEfektiCikar(int hangiSes)
+    {
+        if (sesEfektleri[hangiSes])
+        {
+            sesEfektleri[hangiSes].Stop();
+            sesEfektleri[hangiSes].pitch = Random.Range(0.8f, 1.2f);
+            sesEfektleri[hangiSes].Play();
+        }
+    }
+    
+    
+
     void BackGroundMusicCal(AudioClip clip)
     {
         if (backSource)
@@ -51,5 +74,10 @@ public class SoundManager : MonoBehaviour
     {
         AudioClip _rastgeleClip = clips[Random.Range(0, clips.Length)];
         return _rastgeleClip;
+    }
+
+    public void BackMusicSesAyari()
+    {
+        backSource.volume = PlayerPrefs.GetFloat("BackMusic");
     }
 }
