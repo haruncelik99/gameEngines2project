@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,6 +17,14 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI toplamPuanTxt, coinAdetTxt;
 
+    [SerializeField] private GameObject pausePanel;
+    
+    [SerializeField] private string levelName;
+
+    [HideInInspector]
+    public bool oyunDurdumu;
+    
+
     private void Awake()
     {
         instance = this;
@@ -26,6 +35,49 @@ public class UIManager : MonoBehaviour
         toplamPuanTxt.text = "0 P";
         coinAdetTxt.text = "0";
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            PausePanelAcKapat();
+    }
+
+    void PausePanelAcKapat()
+    {
+        if(GameManager.instance.gameOver)
+            return;
+
+        oyunDurdumu = !oyunDurdumu;
+
+        if (pausePanel)
+        {
+            pausePanel.SetActive(oyunDurdumu);
+            Time.timeScale = (oyunDurdumu) ? 0 : 1;
+
+
+        }
+    }
+
+    public void OyunaDonFNC()
+    {
+        if (pausePanel)
+        {
+            Time.timeScale = 1f;
+            pausePanel.SetActive(false);
+        }
+    }
+
+    public void AnaMenuFNC()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(levelName);
+    }
+
+    public void OyundanCikFNC()
+    {
+        Application.Quit();
+    }
+
 
     public void StartHealthFNC(int toplamCan, int gecerliCan, int toplamZirh, int gecerliZirh)
     {

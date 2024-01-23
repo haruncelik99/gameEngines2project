@@ -46,4 +46,28 @@ public class MenuManager : MonoBehaviour
 
 
     }
+
+    public void OptionsPaneliAc()
+    {
+        butonlarPanel.GetComponent<RectTransform>().DOAnchorPosY(700, .5f);
+        optionsPanel.GetComponent<RectTransform>().DOAnchorPosY(0, .5f);
+    }
+    
+    public void OptionsPaneliKapat()
+    {
+        butonlarPanel.GetComponent<RectTransform>().DOAnchorPosY(0, .5f);
+        optionsPanel.GetComponent<RectTransform>().DOAnchorPosY(700, .5f);
+    }
+
+    public void OyundanCik()
+    {
+        Application.Quit();
+        print("oyundan çıkıldı");
+    }
+
+    public void OyunaBasla()
+    {
+        SceneManager.LoadScene(levelName);
+    }
+    
 }

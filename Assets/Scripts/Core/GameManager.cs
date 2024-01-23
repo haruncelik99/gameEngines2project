@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public int toplamPuan;
     public int coinAdet;
 
+    public bool gameOver;
+
     private void Awake()
     {
         instance = this;

@@ -38,6 +38,11 @@ public class PlayerHareketController : MonoBehaviour
 
     private void Update()
     {
+        if (UIManager.instance.oyunDurdumu)
+            return;
+        
+        
+        
         if (!geriTepkiOlsunmu)
         {
             if (hareketEdebilsinmi)
