@@ -23,6 +23,8 @@ public class UIManager : MonoBehaviour
     
     [SerializeField] private AudioClip butonClip, panelAcmaClip;
 
+    [SerializeField] private GameObject kazandiPanel, kaybettiPanel;
+
     [HideInInspector]
     public bool oyunDurdumu;
     
@@ -59,6 +61,20 @@ public class UIManager : MonoBehaviour
 
 
         }
+    }
+
+    public void KazandiPanelAc()
+    {
+        GameManager.instance.gameOver = true;
+        kazandiPanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+    
+    public void KaybettiPanelAc()
+    {
+        GameManager.instance.gameOver = true;
+        kaybettiPanel.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     public void OyunaDonFNC()

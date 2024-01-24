@@ -1,8 +1,8 @@
-using System;
+
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
+
+
 
 public class BossManager : MonoBehaviour
 {
@@ -27,6 +27,12 @@ public class BossManager : MonoBehaviour
     [SerializeField] private float ikiMermiArasiSure;
     [SerializeField] private float gecikmeZamani = 1f;
 
+    [Header("Belli bir açı ile mermi fırlatma ayarları")] 
+    [SerializeField] private int mermiPatlamaAdet;
+    [SerializeField] [Range(0, 359)] private float yayilmaAngle;
+    [SerializeField] private float baslangicUzakligi = .1f;
+    
+
     private bool atesEtsinmi = false;
 
     private void Awake()
@@ -48,15 +54,90 @@ public class BossManager : MonoBehaviour
         HareketEtFNC();
     }
 
+    IEnumerator BelirliBirAciIleMermiFirlatFNC()
+    {
+        atesEtsinmi = true;
+        
+        Vector2 hareketYonu = PlayerHareketController.instance.transform.position - transform.position;
+
+        float hedefAngle = Mathf.Atan2(hareketYonu.y, hareketYonu.x) * Mathf.Rad2Deg;
+
+        float baslangicAngle = hedefAngle;
+        float gecerliAngle = hedefAngle;
+
+        float yarimYayilmaAngle = 0f;
+        float angleSayac = 0f;
+
+        if (yayilmaAngle != 0)
+        {
+            angleSayac = yayilmaAngle / (mermiAdet - 1);
+            yarimYayilmaAngle = yayilmaAngle / 2f;
+            baslangicAngle = hedefAngle - yarimYayilmaAngle;
+            gecerliAngle = baslangicAngle;
+
+        }
+        
+
+        for (int i = 0; i < mermiAdet; i++)
+        {
+            for (int j = 0; j < mermiPatlamaAdet; j++)
+            {
+                Vector2 pos = MermiFirlatmaPosBelirle(gecerliAngle);
+                
+                BossBullet yeniMermi = ObjectPool.instance.BossMermiCikarFNC();
+                yeniMermi.transform.position = pos;
+                yeniMermi.gameObject.SetActive(true);
+                yeniMermi.MermiHiziniDegistir(mermiHizi);
+
+                yeniMermi.transform.right = yeniMermi.transform.position - transform.position;
+
+                gecerliAngle += angleSayac;
+                
+            }
+
+            gecerliAngle = baslangicAngle;
+            yield return new WaitForSeconds(ikiMermiArasiSure);
+
+
+        }
+        
+
+        yield return new WaitForSeconds(gecikmeZamani);
+        atesEtsinmi = false;
+    }
+
+    Vector2 MermiFirlatmaPosBelirle(float gecerliAngle)
+    {
+        float x = transform.position.x + baslangicUzakligi * Mathf.Cos(gecerliAngle * Mathf.Deg2Rad);
+        float y = transform.position.y + baslangicUzakligi * Mathf.Sin(gecerliAngle * Mathf.Deg2Rad);
+        Vector2 pos = new Vector2(x, y);
+        return pos;
+    }
+    
+    
+    
+
     void MermiFirlatFNC()
     {
         if(!PlayerHareketController.instance.gameObject.activeInHierarchy)
             return;
+
+        float randomBullet = Random.value;
         
         
         if (!atesEtsinmi)
         {
-            StartCoroutine(DuzenliAtesEtRoutine());
+            if (randomBullet <= 0.5f)
+            {
+                StartCoroutine(BelirliBirAciIleMermiFirlatFNC());
+            }
+            else
+            {
+                StartCoroutine(DuzenliAtesEtRoutine());
+
+            }
+            
+            
         }
         
     }

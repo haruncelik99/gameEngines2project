@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using Unity.Mathematics;
 
 public class EnemyHealthController : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class EnemyHealthController : MonoBehaviour
     private int gecerliCan;
 
     private KnockBack knockBack;
+
+    [SerializeField] private bool bossMu;
 
     private void Awake()
     {
@@ -67,6 +70,11 @@ public class EnemyHealthController : MonoBehaviour
             }
             
             gameObject.SetActive(false);
+
+            if (bossMu)
+            {
+                UIManager.instance.KazandiPanelAc();
+            }
         }
 
     }

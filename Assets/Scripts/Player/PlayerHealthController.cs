@@ -111,11 +111,12 @@ public class PlayerHealthController : MonoBehaviour
 
     void PlayerCanVerdi()
     {
+        
         if (SoundManager.instance)
         {
             SoundManager.instance.SesEfektiCikar(5);
         }
-        
+        UIManager.instance.KaybettiPanelAc();
         
         Instantiate(playerDeathEffect, transform.position, Quaternion.identity);
         this.gameObject.SetActive(false);
