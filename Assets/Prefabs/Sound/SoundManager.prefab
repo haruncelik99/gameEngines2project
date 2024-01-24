@@ -984,4 +984,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 278dcd0650d83cd4387e85aa76ed8108, type: 3}
   - {fileID: 8300000, guid: 5b5bbb04934f5a74ba5c9b1c153cb886, type: 3}
   - {fileID: 8300000, guid: d5f7539a498d6bd438efc9977e9f166b, type: 3}
-  sesEfektleri: []
+  sesEfektleri:
+  - {fileID: 5464944748138353510}
+  - {fileID: 5464944747700646710}
+  - {fileID: 5464944748657280868}
+  - {fileID: 5464944748662756803}
+  - {fileID: 5464944748385866162}
+  - {fileID: 5464944747323393477}

@@ -1,29 +1,30 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBullet : MonoBehaviour
+
+public class BossBullet : MonoBehaviour
 {
     [SerializeField] private float mermiHizi = 10f;
     [SerializeField] private int hasarMiktari = 1;
 
-    private Vector3 hareketYonu;
+    private SpriteRenderer sr;
+    [SerializeField] private Sprite[] srResimler;
+
+    private void Awake()
+    {
+        sr = GetComponent<SpriteRenderer>();
+    }
 
     private void Start()
     {
-        
+        sr.sprite = srResimler[Random.Range(0, srResimler.Length)];
     }
 
-    private void OnEnable()
-    {
-        hareketYonu = PlayerHareketController.instance.transform.position - transform.position;
-        hareketYonu.Normalize();
-    }
 
     private void Update()
     {
-        transform.position += hareketYonu * mermiHizi * Time.deltaTime;
+        transform.Translate(Vector3.right*mermiHizi*Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

@@ -27,6 +27,15 @@ public class ObjectPool : MonoBehaviour
     public List<EnemyBullet> enemyBulletList = new List<EnemyBullet>();
     [SerializeField]
     private int enemyBulletAdet = 30;
+    
+    [Header("Boss Mermi Pools")]
+    [SerializeField] private Transform bossMermiHolder;
+    [SerializeField] private BossBullet bossBullet;
+    public List<BossBullet> bossBulletList = new List<BossBullet>();
+    [SerializeField]
+    private int bossBulletAdet = 50;
+    
+    
 
 
 
@@ -75,6 +84,15 @@ public class ObjectPool : MonoBehaviour
             enemy_bullet.gameObject.SetActive(false);
             enemy_bullet.gameObject.transform.SetParent(enemyMermiHolder);
             enemyBulletList.Add(enemy_bullet);
+
+        }
+        
+        for (int i = 0; i < bossBulletAdet; i++)
+        {
+            BossBullet boss_bullet = Instantiate(bossBullet);
+            boss_bullet.gameObject.SetActive(false);
+            boss_bullet.gameObject.transform.SetParent(bossMermiHolder);
+            bossBulletList.Add(boss_bullet);
 
         }
 
@@ -130,6 +148,19 @@ public class ObjectPool : MonoBehaviour
             if (!enemyBulletList[i].gameObject.activeInHierarchy)
             {
                 return enemyBulletList[i];
+            }
+        }
+
+        return null;
+    }
+    
+    public BossBullet BossMermiCikarFNC()
+    {
+        for (int i = 0; i < bossBulletList.Count; i++)
+        {
+            if (!bossBulletList[i].gameObject.activeInHierarchy)
+            {
+                return bossBulletList[i];
             }
         }
 

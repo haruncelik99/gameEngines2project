@@ -18,14 +18,19 @@ public class LaserBullet : MonoBehaviour
 
     [SerializeField] private int laserHasarGucu = 3;
 
+    private AudioSource _audioSource;
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         capsuleCollider2D = GetComponent<CapsuleCollider2D>();
+        _audioSource = GetComponent<AudioSource>();
+
     }
 
     private void Start()
     {
+        _audioSource.volume = PlayerPrefs.GetFloat("SFXVolume");
         LaserFirlatFNC();
     }
 

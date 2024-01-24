@@ -9,9 +9,17 @@ public class PlayerBullet : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    private AudioSource _audioSource;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        _audioSource = GetComponent<AudioSource>();
+    }
+
+    private void OnEnable()
+    {
+        _audioSource.volume = PlayerPrefs.GetFloat("SFXVolume");
     }
 
     private void Update()
