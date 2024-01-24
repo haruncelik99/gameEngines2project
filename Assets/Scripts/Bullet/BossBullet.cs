@@ -27,6 +27,13 @@ public class BossBullet : MonoBehaviour
         transform.Translate(Vector3.right*mermiHizi*Time.deltaTime);
     }
 
+    public void MermiHiziniDegistir(float gelenMermiHizi)
+    {
+        mermiHizi = gelenMermiHizi;
+    }
+    
+    
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))

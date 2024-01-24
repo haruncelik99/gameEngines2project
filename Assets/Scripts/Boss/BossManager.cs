@@ -21,6 +21,14 @@ public class BossManager : MonoBehaviour
 
     private Animator anim;
 
+    [Header("Düzenli Mermi Ayarlari")] 
+    [SerializeField] private float mermiHizi = 10f;
+    [SerializeField] private int mermiAdet;
+    [SerializeField] private float ikiMermiArasiSure;
+    [SerializeField] private float gecikmeZamani = 1f;
+
+    private bool atesEtsinmi = false;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -38,21 +46,70 @@ public class BossManager : MonoBehaviour
             return;
         
         HareketEtFNC();
+    }
+
+    void MermiFirlatFNC()
+    {
+        if(!PlayerHareketController.instance.gameObject.activeInHierarchy)
+            return;
         
         
+        if (!atesEtsinmi)
+        {
+            StartCoroutine(DuzenliAtesEtRoutine());
+        }
         
     }
+    
+
+    IEnumerator DuzenliAtesEtRoutine()
+    {
+        atesEtsinmi = true;
+
+        for (int i = 0; i < mermiAdet; i++)
+        {
+            Vector2 hareketYonu = PlayerHareketController.instance.transform.position - transform.position;
+
+            BossBullet yeniMermi = ObjectPool.instance.BossMermiCikarFNC();
+            yeniMermi.transform.position = transform.position;
+            yeniMermi.transform.right = hareketYonu;
+            yeniMermi.MermiHiziniDegistir(mermiHizi);
+            yeniMermi.gameObject.SetActive(true);
+
+            yield return new WaitForSeconds(ikiMermiArasiSure);
+        }
+        
+
+        yield return new WaitForSeconds(gecikmeZamani);
+        atesEtsinmi = false;
+    }
+    
+    
+    
+    
+    
 
     void HareketEtFNC()
     {
-        transform.position = Vector3.MoveTowards(transform.position, hedefPos.position, harekethizi * Time.deltaTime);
-
-        if (Vector3.Distance(transform.position, hedefPos.position) < .1f && hareketEtsinmi)
+        if (PlayerHareketController.instance.gameObject.activeInHierarchy)
         {
-            hareketEtsinmi = false;
-            transform.position = hedefPos.position;
-            StartCoroutine(AzBekleHareketEtRouitine());
+            transform.position = Vector3.MoveTowards(transform.position, hedefPos.position, harekethizi * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, hedefPos.position) < .1f && hareketEtsinmi)
+            {
+                hareketEtsinmi = false;
+                transform.position = hedefPos.position;
+                StartCoroutine(AzBekleHareketEtRouitine());
+            }
         }
+        else
+        {
+            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            anim.Play("UpDownAnim");
+        }
+        
+        
+        
     }
     
     
@@ -61,7 +118,7 @@ public class BossManager : MonoBehaviour
     IEnumerator AzBekleHareketEtRouitine()
     {
         anim.Play("UpDownAnim");
-        
+        MermiFirlatFNC();
         yield return new WaitForSeconds(beklemeSuresi);
         hareketEtsinmi = true;
         YeniHedefOlusturFNC();

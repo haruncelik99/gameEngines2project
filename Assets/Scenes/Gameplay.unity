@@ -4877,6 +4877,10 @@ MonoBehaviour:
   - {fileID: 548679852}
   - {fileID: 1693993366}
   beklemeSuresi: 2
+  mermiHizi: 20
+  mermiAdet: 5
+  ikiMermiArasiSure: 0.2
+  gecikmeZamani: 1
 --- !u!1 &1201918331
 GameObject:
   m_ObjectHideFlags: 0
