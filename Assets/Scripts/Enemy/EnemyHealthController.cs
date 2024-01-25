@@ -18,6 +18,8 @@ public class EnemyHealthController : MonoBehaviour
     private KnockBack knockBack;
 
     [SerializeField] private bool bossMu;
+    
+    [SerializeField] private bool BombEnemyMi;
 
     private void Awake()
     {
@@ -68,8 +70,17 @@ public class EnemyHealthController : MonoBehaviour
             {
                 GetComponent<DropManager>().NesneyiBirakFNC();
             }
+
+            if (BombEnemyMi)
+            {
+                transform.parent.gameObject.SetActive(false);
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
             
-            gameObject.SetActive(false);
+            
 
             if (bossMu)
             {

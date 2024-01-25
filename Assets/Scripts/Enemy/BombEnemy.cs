@@ -18,6 +18,13 @@ public class BombEnemy : MonoBehaviour
     private bool hareketEtsinmi = true;
 
     private int kacinciPos;
+    
+    private Camera mainCamera;
+    
+    private void Awake()
+    {
+        mainCamera = Camera.main;
+    }
 
     private void Start()
     {
@@ -29,14 +36,20 @@ public class BombEnemy : MonoBehaviour
     {
         if(!hareketEtsinmi)
             return;
-        transform.position = Vector3.MoveTowards(transform.position, hedefPos.position, harekethizi * Time.deltaTime);
+        
+        Vector3 enemyScreenPos = mainCamera.WorldToScreenPoint(transform.position);
 
-        if (Vector3.Distance(transform.position, hedefPos.position) < .1f && hareketEtsinmi)
+        if (enemyScreenPos.x > 0 && enemyScreenPos.x < Screen.width && enemyScreenPos.y > 0 &&
+            enemyScreenPos.y < Screen.height)
         {
-            hareketEtsinmi = false;
-            StartCoroutine(AzBekleHareketEtRouitine());
+            transform.position = Vector3.MoveTowards(transform.position, hedefPos.position, harekethizi * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, hedefPos.position) < .1f && hareketEtsinmi)
+            {
+                hareketEtsinmi = false;
+                StartCoroutine(AzBekleHareketEtRouitine());
+            }
         }
-            
         
     }
 

@@ -24,12 +24,17 @@ public class EnemyController : MonoBehaviour
     private Animator anim;
 
     private KnockBack knockBack;
+    
+    private Camera mainCamera;
+
+    
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         knockBack = GetComponent<KnockBack>();
+        mainCamera = Camera.main;
         
     }
 
@@ -40,53 +45,54 @@ public class EnemyController : MonoBehaviour
         {
             return;
         }
+        
+        Vector3 enemyScreenPos = mainCamera.WorldToScreenPoint(transform.position);
 
-        if (MesafeOlcFNC() < takipMesafesi)
+        if (enemyScreenPos.x > 0 && enemyScreenPos.x < Screen.width && enemyScreenPos.y > 0 &&
+            enemyScreenPos.y < Screen.height)
         {
-            hareketYonu = PlayerHareketController.instance.transform.position - transform.position;
-        }
-        else
-        {
-            hareketYonu = Vector3.zero;
-        }
-
-
-        hareketYonu.Normalize();
-        rb.velocity = hareketYonu * hareketHizi;
-
-        if (PlayerHareketController.instance.transform.position.x > transform.position.x)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
-        else
-        {
-            transform.localScale = Vector3.one;
-        }
-
-        if(rb.velocity != Vector2.zero)
-        {
-            anim.SetBool("hareketEtsinmi", true);
-        }
-        else
-        {
-            anim.SetBool("hareketEtsinmi", false);
-        }
-
-        //mermi ile ilgili
-
-        if(MesafeOlcFNC() < mermiAtisMesafesi)
-        {
-            if (Time.time > atesEtmeSayac && PlayerHareketController.instance.gameObject.activeInHierarchy)
+            if (MesafeOlcFNC() < takipMesafesi)
             {
-                atesEtmeSayac = Time.time + atesEtmeAraligi;
-                ShootBullet();
+                hareketYonu = PlayerHareketController.instance.transform.position - transform.position;
+            }
+            else
+            {
+                hareketYonu = Vector3.zero;
+            }
+
+
+            hareketYonu.Normalize();
+            rb.velocity = hareketYonu * hareketHizi;
+
+            if (PlayerHareketController.instance.transform.position.x > transform.position.x)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+            else
+            {
+                transform.localScale = Vector3.one;
+            }
+
+            if(rb.velocity != Vector2.zero)
+            {
+                anim.SetBool("hareketEtsinmi", true);
+            }
+            else
+            {
+                anim.SetBool("hareketEtsinmi", false);
+            }
+
+            //mermi ile ilgili
+
+            if(MesafeOlcFNC() < mermiAtisMesafesi)
+            {
+                if (Time.time > atesEtmeSayac && PlayerHareketController.instance.gameObject.activeInHierarchy)
+                {
+                    atesEtmeSayac = Time.time + atesEtmeAraligi;
+                    ShootBullet();
+                }
             }
         }
-
-        
-
-
-
     }
 
     void ShootBullet()

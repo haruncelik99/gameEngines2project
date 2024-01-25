@@ -34,10 +34,13 @@ public class BossManager : MonoBehaviour
     
 
     private bool atesEtsinmi = false;
+    
+    private Camera mainCamera;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        mainCamera = Camera.main;
     }
 
     private void Start()
@@ -51,7 +54,18 @@ public class BossManager : MonoBehaviour
         if(!hareketEtsinmi)
             return;
         
-        HareketEtFNC();
+        Vector3 enemyScreenPos = mainCamera.WorldToScreenPoint(transform.position);
+
+        if (enemyScreenPos.x > 0 && enemyScreenPos.x < Screen.width && enemyScreenPos.y > 0 &&
+            enemyScreenPos.y < Screen.height)
+        {
+            HareketEtFNC();
+        }
+        
+        
+        
+        
+        
     }
 
     IEnumerator BelirliBirAciIleMermiFirlatFNC()
@@ -85,13 +99,19 @@ public class BossManager : MonoBehaviour
                 Vector2 pos = MermiFirlatmaPosBelirle(gecerliAngle);
                 
                 BossBullet yeniMermi = ObjectPool.instance.BossMermiCikarFNC();
-                yeniMermi.transform.position = pos;
-                yeniMermi.gameObject.SetActive(true);
-                yeniMermi.MermiHiziniDegistir(mermiHizi);
 
-                yeniMermi.transform.right = yeniMermi.transform.position - transform.position;
+                if (yeniMermi != null)
+                {
+                    yeniMermi.transform.position = pos;
+                    yeniMermi.gameObject.SetActive(true);
+                    yeniMermi.MermiHiziniDegistir(mermiHizi);
 
-                gecerliAngle += angleSayac;
+                    yeniMermi.transform.right = yeniMermi.transform.position - transform.position;
+                    gecerliAngle += angleSayac;
+                }
+                
+
+                
                 
             }
 
@@ -152,12 +172,16 @@ public class BossManager : MonoBehaviour
             Vector2 hareketYonu = PlayerHareketController.instance.transform.position - transform.position;
 
             BossBullet yeniMermi = ObjectPool.instance.BossMermiCikarFNC();
-            yeniMermi.transform.position = transform.position;
-            yeniMermi.transform.right = hareketYonu;
-            yeniMermi.MermiHiziniDegistir(mermiHizi);
-            yeniMermi.gameObject.SetActive(true);
+            if (yeniMermi != null)
+            {
+                yeniMermi.transform.position = transform.position;
+                yeniMermi.transform.right = hareketYonu;
+                yeniMermi.MermiHiziniDegistir(mermiHizi);
+                yeniMermi.gameObject.SetActive(true);
 
-            yield return new WaitForSeconds(ikiMermiArasiSure);
+                yield return new WaitForSeconds(ikiMermiArasiSure);
+            }
+            
         }
         
 

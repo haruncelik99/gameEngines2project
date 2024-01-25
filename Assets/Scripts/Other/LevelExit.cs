@@ -10,6 +10,7 @@ public class LevelExit : MonoBehaviour
    [SerializeField] private string levelName;
    [SerializeField] private float beklemeSuresi = 2f;
    [SerializeField] private Transform centerPos;
+   
    [SerializeField] private GameObject fadeImg;
 
    private void OnTriggerEnter2D(Collider2D other)

@@ -411,6 +411,8 @@ MonoBehaviour:
   deathEffect: {fileID: 4197141007386798507, guid: bf15fd4b3d6561a4792b48e028323797, type: 3}
   mermiTepkiGucu: 3
   maxCan: 5
+  bossMu: 0
+  BombEnemyMi: 1
 --- !u!114 &6647123811655375113
 MonoBehaviour:
   m_ObjectHideFlags: 0

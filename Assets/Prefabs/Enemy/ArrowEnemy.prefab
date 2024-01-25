@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4891307844399000158}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: arrowRotate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4891307844409373656}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: arrowPoint
   m_TagString: Untagged
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
@@ -74,7 +74,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4891307844548533131}
   - component: {fileID: 4891307844548533130}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,9 +163,9 @@ GameObject:
   - component: {fileID: 4891307844601131797}
   - component: {fileID: 4891307844601131798}
   - component: {fileID: 4891307844601131792}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ArrowEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -241,7 +241,8 @@ MonoBehaviour:
   damageEffect: {fileID: 1450517717600831491, guid: 5797236b6f7135d49abb877bc536f6e3, type: 3}
   deathEffect: {fileID: 4197141007386798507, guid: bf15fd4b3d6561a4792b48e028323797, type: 3}
   mermiTepkiGucu: 3
-  maxCan: 100
+  maxCan: 5
+  bossMu: 0
 --- !u!114 &4891307844601131797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,9 +301,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4891307844913946929}
   - component: {fileID: 4891307844913946928}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: arrowEnemy_2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
